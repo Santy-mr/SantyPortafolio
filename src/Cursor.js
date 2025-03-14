@@ -1,4 +1,5 @@
 import Application from "./Application.js"
+import EventEmitter from "../static/utils/EventEmitter.js"
 
 export default class Cursor extends EventEmitter{
     constructor(){

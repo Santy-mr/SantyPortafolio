@@ -1,4 +1,4 @@
-import EventEmitter from "../static/utils/EventEmitter";
+import EventEmitter from "../static/utils/EventEmitter.js";
 import Application from "./Application.js";
 import gsap from "gsap";
 
@@ -9,6 +9,7 @@ export default class Scroll extends EventEmitter {
         this.application = new Application()
 
         this.sizes = this.application.sizes
+        this.sectionMeshes = this.application.world.environment.sectionMeshes
 
         this.scroll = {}
         this.scroll.Y = window.scrollY

@@ -7,7 +7,7 @@ export default class Renderer {
 
         this.canvas = this.application.canvas
         this.sizes = this.application.sizes
-        this.scene = this.application.render
+        this.scene = this.application.scene
         this.camera = this.application.camera
 
         this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: true })
