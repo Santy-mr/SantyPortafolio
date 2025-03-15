@@ -22,6 +22,8 @@ export default class Time extends EventEmitter {
 
         this.trigger('animate')
 
+        
+
         window.requestAnimationFrame(() => {
             this.Animate();
         })

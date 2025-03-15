@@ -15,11 +15,13 @@ export default class World {
 
         this.resources.on('loaded', () => {
             this.environment = new Environment();
+            this.environment.sectionMeshes ?  this.scroll.SetSectionMeshes(this.environment.sectionMeshes) : null;
         })
     }
 
     Update() {
         if (this.environment) {
+            this.environment.Update();
             this.scroll.Update();
             this.cursor.Update();
         }

@@ -9,20 +9,25 @@ export default class Scroll extends EventEmitter {
         this.application = new Application()
 
         this.sizes = this.application.sizes
-        this.sectionMeshes = this.application.world.environment.sectionMeshes
+        this.sectionMeshes = []
 
         this.scroll = {}
         this.scroll.Y = window.scrollY
         this.currentSection = 0
     }
 
-    Update(){
+    SetSectionMeshes(meshes) {
+        this.sectionMeshes = meshes
+    }
+
+    Update() {
         window.addEventListener('scroll', () => {
             this.scroll.Y = window.scrollY;
             this.newSection = Math.round(this.scroll.Y / this.sizes.height)
 
-            if (this.newSection != this.currentSection) {
+            if (this.newSection != this.currentSection && this.sectionMeshes.length > 0) {
                 this.currentSection = this.newSection
+
                 gsap.to(this.sectionMeshes[this.currentSection].rotation, {
                     duration: 1.5,
                     ease: 'power2.inOut',

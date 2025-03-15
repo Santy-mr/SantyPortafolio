@@ -11,6 +11,9 @@ export default class Resources extends EventEmitter {
         this.items = {};
         this.toLoad = this.sources.length;
         this.loaded = 0;
+
+        this.SetLoaders()
+        this.StartLoading()
     }
 
     SetLoaders() {
@@ -26,15 +29,16 @@ export default class Resources extends EventEmitter {
                 case 'texture':
                     this.loaders.textureLoader.load(
                         source.path, (file) => {
-                            this.sourceLoaded(source, file);
+                            this.SourceLoaded(source, file);
                         }
+                        
                     )
                 break;
 
                 case 'gltf':
                     this.loaders.gltfLoader.load(
                         source.path, (file) => {
-                            this.sourceLoaded(source, file);
+                            this.SourceLoaded(source, file);
                         }
                     )
                 break;

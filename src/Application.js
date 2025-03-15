@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Sizes from '../static/utils/Sizes.js'
 import Time from '../static/utils/Time.js'
+import Debug from '../static/utils/Debug.js'
 import Camera from './Camera.js'
 import Sources from './Sources.js'
 import Renderer from './Renderer.js'
@@ -18,10 +19,13 @@ export default class Application {
         
         this.sizes = new Sizes()
         this.time = new Time()
+        this.debug = new Debug();
+
         this.scene = new THREE.Scene();
         this.resources = new Resources(Sources)
         this.camera = new Camera();
         this.renderer = new Renderer()
+
         this.world = new World()
 
         this.sizes.on('resize', () => {
@@ -40,5 +44,32 @@ export default class Application {
 
     Update(){
         this.renderer.Update();
+        this.world.Update();
+        this.camera.Update();
+    }
+
+    Destroy(){
+        this.sizes.off('resize')
+        this.time.off('animate')
+
+        this.scene.traverse((child) => {
+            if(child instanceof THREE.Mesh){
+                child.geometry.dispose()
+
+                for(const key in child.material){
+                    const value = child.material[key]
+
+                    if(value && typeof value.dispose === 'function')
+                    {
+                        value.dispose()
+                    }
+                }
+            }
+        })
+        this.renderer.instance.dispose()
+
+        if(this.debug.active){
+            this.debug.ui.destroy()
+        }
     }
 }

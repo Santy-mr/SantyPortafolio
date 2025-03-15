@@ -4,10 +4,19 @@ import * as THREE from 'three'
 export default class Environment{
     constructor(){
         this.application = new Application()
+
         this.scene = this.application.scene
         this.resources = this.application.resources
+        this.time = this.application.time
+        this.debug = this.application.debug
 
         this.objectDistance = 4;
+
+        if(this.debug.active){
+            this.lightsFolder = this.debug.ui.addFolder("Lights")
+            this.materialsFolder = this.debug.ui.addFolder("Lights")
+        }
+        this.parameters = { materialColor: '#ffeded' }
 
         this.SetGeometrys()
         this.SetTextures()
@@ -15,6 +24,8 @@ export default class Environment{
         this.SetMesh()
         this.SetParticles();
         this.SetLight()
+
+
     }
 
     SetGeometrys(){
@@ -36,15 +47,17 @@ export default class Environment{
 
         this.textures.gradientTexture = this.resources.items.gradientTexture
         this.textures.gradientTexture.colorSpace = THREE.SRGBColorSpace
+        this.textures.gradientTexture.magFilter = THREE.NearestFilter
     }
 
     SetMaterials(){
-        this.meshsMaterial = new THREE.MeshStandardMaterial({
-            map: this.textures.gradientTexture
+        this.meshsMaterial = new THREE.MeshToonMaterial({
+            gradientMap: this.textures.gradientTexture,
+            color: '#0000ff'
         })
 
         this.particlesMaterial = new THREE.PointsMaterial({
-            map: this.particlesMaterial,
+            map: this.textures.particlesTexture,
             alphaMap: this.textures.particlesTexture,
             transparent: true,
             depthWrite: false,
@@ -53,19 +66,53 @@ export default class Environment{
             size: 0.03,
             blending: THREE.AdditiveBlending
         })
+
+        if(this.debug.active){
+            this.materialsFolder.add(this.particlesMaterial, 'size', 0, 1, 0.01).name("Particles Size")
+            this.materialsFolder.addColor(this.parameters, 'materialColor').onChange(() =>{ this.particlesMaterial.color.set(this.parameters.materialColor) })
+        }
     }
 
     SetMesh(){
         this.torusMesh = new THREE.Mesh(this.torusGeometry, this.meshsMaterial)
         this.coneMesh = new THREE.Mesh(this.coneGeometry, this.meshsMaterial)
         this.torusKnotMesh = new THREE.Mesh(this.torusKnotGeometry, this.meshsMaterial)
-        
-        this.torusMesh.position.set(2, -this.objectDistance * 0, 0)
-        this.coneMesh.position.set(-2, -this.objectDistance * 1, 0)
-        this.torusKnotMesh.position.set(2, -this.objectDistance * 2, 0)
+
+        this.PositionMeshes()
+        this.ResponsiveBehavior()
         
         this.scene.add(this.torusMesh, this.coneMesh, this.torusKnotMesh)
         this.sectionMeshes = [this.torusMesh, this.coneMesh, this.torusKnotMesh]
+    }
+
+    PositionMeshes(isMobile = false){
+        if (isMobile) {
+            this.torusMesh.position.set(0, -this.objectDistance * 0, 0)
+            this.coneMesh.position.set(0, -this.objectDistance * 1, 0)
+            this.torusKnotMesh.position.set(0, -this.objectDistance * 2, 0)
+
+            this.torusMesh.scale.setScalar(0.5)
+            this.coneMesh.scale.setScalar(0.5)
+            this.torusKnotMesh.scale.setScalar(0.5)
+
+        } else {
+            this.torusMesh.position.set(1.75, -this.objectDistance * 0, 0)
+            this.coneMesh.position.set(-1.75, -this.objectDistance * 1, 0)
+            this.torusKnotMesh.position.set(1.75, -this.objectDistance * 2, 0)
+
+            this.torusMesh.scale.setScalar(1)
+            this.coneMesh.scale.setScalar(1)
+            this.torusKnotMesh.scale.setScalar(1)
+        }
+    }
+
+    ResponsiveBehavior(){
+        const mobileMediaQuery = window.matchMedia('(max-width: 600px)')
+        this.PositionMeshes(mobileMediaQuery.matches)
+
+        mobileMediaQuery.addEventListener('change', (event) => {
+            this.PositionMeshes(event.matches);
+        });
     }
     
     SetParticles(){
@@ -83,5 +130,19 @@ export default class Environment{
         this.directionalLight = new THREE.DirectionalLight('#ffffff', 3)
         this.directionalLight.position.set(1, 1, 0)
         this.scene.add(this.directionalLight)
+
+        if(this.debug.active){
+            this.lightsFolder.add(this.directionalLight, 'intensity', 0, 10, 1).name("Light Intensity")
+            this.lightsFolder.add(this.directionalLight.position, 'x', -5, 5, 0.001).name('Light PosX')
+            this.lightsFolder.add(this.directionalLight.position, 'y', -5, 5, 0.001).name('Light PosY')
+            this.lightsFolder.add(this.directionalLight.position, 'z', -5, 5, 0.001).name('Light PosZ')
+        }
+    }
+
+    Update(){
+        for (let i = 0; i < this.sectionMeshes.length; i++) {
+            this.sectionMeshes[i].rotation.x += this.time.delta * 0.0001
+            this.sectionMeshes[i].rotation.y += this.time.delta * 0.00012
+        }
     }
 }

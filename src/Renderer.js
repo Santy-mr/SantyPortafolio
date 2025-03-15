@@ -9,15 +9,23 @@ export default class Renderer {
         this.sizes = this.application.sizes
         this.scene = this.application.scene
         this.camera = this.application.camera
+        this.pixelRatio = this.application.pixelRatio
 
-        this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: true })
+        this.SetInstance();
+    }
+
+    SetInstance(){
+        this.instance = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: true })
+        this.instance.setSize(this.sizes.width, this.sizes.height)
+        this.instance.setPixelRatio(this.sizes.pixelRatio)
     }
 
     Resize(){
-        this.renderer.setSize(this.sizes.width, this.sizes.height)
+        this.instance.setSize(this.sizes.width, this.sizes.height)
+        this.instance.setPixelRatio(this.sizes.pixelRatio)
     }
 
     Update(){
-        this.renderer.render(this.scene, this.camera)
+        this.instance.render(this.scene, this.camera.instance)
     }
 }
