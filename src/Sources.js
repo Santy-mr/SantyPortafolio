@@ -10,5 +10,11 @@ export default [
         type:"texture",
         path:"static/textures/3.webp",
         category:"general"
+    },
+    {
+        name:"astronautModel",
+        type:"gltf",
+        path:"static/models/Astronaut.glb",
+        category:"model",
     }
 ]

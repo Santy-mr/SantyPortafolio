@@ -20,6 +20,10 @@ export default class Scroll extends EventEmitter {
         this.sectionMeshes = meshes
     }
 
+    GetCurrentSection(){
+        return this.currentSection;
+    }
+
     Update() {
         window.addEventListener('scroll', () => {
             this.scroll.Y = window.scrollY;

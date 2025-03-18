@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import Application from './Application.js';
+import { OrbitControls } from 'three/examples/jsm/Addons.js';
 
 export default class Camera {
     constructor(){
@@ -8,6 +9,7 @@ export default class Camera {
         this.sizes = this.application.sizes
         this.scene = this.application.scene
         this.time = this.application.time
+        this.canvas = this.application.canvas
 
         this.SetInstance();
     }

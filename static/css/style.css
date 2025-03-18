@@ -1,70 +1,94 @@
-*, *::after, *::before{
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
-    box-sizing: border-box;
-  }
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+:root {
+  --background-color: #050515;
   
-  body{
-    background-color: #1e1a20;
-  }
-  
-  canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    outline: none;
-  }
-  
-  h1{
-    color: #ffeded;
-    text-transform: uppercase;
-    font-size: 10vmin;
-  }
-  
-  .section {
-    scroll-snap-align: center;
-    display: flex;
+  --primary-color: #ffffff;
+  --secondary-color: #8a4e95;
+  --text-color: #ffffff;
+
+  --font-size-heading: 9vmin;
+  --font-size-base: 1.5vmin: 
+}
+
+body{
+  background-color: var(--background-color);
+}
+
+html {
+  /* scroll-snap-type: y mandatory; */
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+}
+
+h1 {
+  color: var(--primary-color);
+  text-transform: uppercase;
+  font-size: var(--font-size-heading);
+}
+
+.section {
+  scroll-snap-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+  font-family: 'Cabin', sans-serif;
+  padding-inline: 10%;
+  flex-wrap: wrap;
+}
+
+.section:first-child{
+  align-items: center;
+}
+
+.section p {
+  font-size: var(--font-size-base);
+  color: white;
+  max-width: 50%;
+}
+
+section:nth-child(odd) {
+  align-items: flex-end;
+}
+
+.grid-container {
+  gap: 2rem;
+  width: 40%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  justify-items: center;
+}
+
+.box {
+  width: 50px;
+  height: 50px;
+  background-color: red;
+}
+
+@media screen and (width < 600px) {
+
+  .section,
+  .section:nth-child(odd) {
     justify-content: center;
-    flex-direction: column;
-    height: 100vh;
-    position: relative;
-    font-family: 'Cabin', sans-serif;
-    padding-inline: 10%;
-    flex-wrap: wrap;
+    align-items: center;
+    text-align: start;
+
+    p {
+      font-size: 2vmax;
+    }
   }
-  
-  .section p{
-    font-size: 1.5vmin;
-    color:white;
-  }
-  
-  section:nth-child(odd) {
-    align-items: flex-end;
-  }
-  
-  .grid-container{
-    gap: 2rem;
-    width: 40%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-    justify-items: center;
-  }
-  
-  .box{
-    width: 50px;
-    height: 50px;
-    background-color: red;
-  }
-  
-  
-  @media screen and (width < 600px) {
-    .section, .section:nth-child(odd){
-        justify-content: center ;
-        align-items: center;
-        text-align: start;
-        p{
-          font-size: 2vmax;
-        }
-      }
-  }  
+}

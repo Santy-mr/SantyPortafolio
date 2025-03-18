@@ -9,9 +9,22 @@ export default class Time extends EventEmitter {
         this.elapsed = 0
         this.delta = 16
 
+        this.lastTime = performance.now()
+        this.frames = 0;
+
         window.requestAnimationFrame(() => {
             this.Animate();
         })
+    }
+
+    TrackFps(){
+        const now = performance.now();
+        this.frames++;
+        if (now - this.lastTime >= 1000) {
+            console.log(`FPS: ${this.frames}`);
+            this.frames = 0;
+            this.lastTime = now;
+        }
     }
 
     Animate(){
@@ -22,7 +35,7 @@ export default class Time extends EventEmitter {
 
         this.trigger('animate')
 
-        
+        this.TrackFps();
 
         window.requestAnimationFrame(() => {
             this.Animate();

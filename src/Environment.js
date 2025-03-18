@@ -2,13 +2,18 @@ import Application from "./Application.js";
 import * as THREE from 'three'
 
 export default class Environment{
-    constructor(){
+    constructor(astronaut){
         this.application = new Application()
 
         this.scene = this.application.scene
         this.resources = this.application.resources
         this.time = this.application.time
         this.debug = this.application.debug
+
+        this.world = this.application.world
+        this.scroll = this.world.scroll
+
+        this.astronaut = astronaut
 
         this.objectDistance = 4;
 
@@ -24,8 +29,6 @@ export default class Environment{
         this.SetMesh()
         this.SetParticles();
         this.SetLight()
-
-
     }
 
     SetGeometrys(){
@@ -33,7 +36,7 @@ export default class Environment{
         this.coneGeometry = new THREE.ConeGeometry(1, 2, 32)
         this.torusKnotGeometry = new THREE.TorusKnotGeometry(0.8, 0.35, 100, 16)
 
-        this.count = 2000
+        this.count = 4000
         this.positions = new Float32Array(this.count * 3)
         this.particlesGeometry = new THREE.BufferGeometry()
         this.particlesGeometry.setAttribute('position', new THREE.BufferAttribute(this.positions, 3))
@@ -82,23 +85,23 @@ export default class Environment{
         this.ResponsiveBehavior()
         
         this.scene.add(this.torusMesh, this.coneMesh, this.torusKnotMesh)
-        this.sectionMeshes = [this.torusMesh, this.coneMesh, this.torusKnotMesh]
+        this.sectionMeshes = [this.astronaut, this.torusMesh, this.coneMesh, this.torusKnotMesh]
     }
 
     PositionMeshes(isMobile = false){
         if (isMobile) {
-            this.torusMesh.position.set(0, -this.objectDistance * 0, 0)
-            this.coneMesh.position.set(0, -this.objectDistance * 1, 0)
-            this.torusKnotMesh.position.set(0, -this.objectDistance * 2, 0)
+            this.torusMesh.position.set(0, -this.objectDistance * 1, 0)
+            this.coneMesh.position.set(0, -this.objectDistance * 2, 0)
+            this.torusKnotMesh.position.set(0, -this.objectDistance * 3, 0)
 
             this.torusMesh.scale.setScalar(0.5)
             this.coneMesh.scale.setScalar(0.5)
             this.torusKnotMesh.scale.setScalar(0.5)
 
         } else {
-            this.torusMesh.position.set(1.75, -this.objectDistance * 0, 0)
-            this.coneMesh.position.set(-1.75, -this.objectDistance * 1, 0)
-            this.torusKnotMesh.position.set(1.75, -this.objectDistance * 2, 0)
+            this.torusMesh.position.set(1.75, -this.objectDistance * 1, 0)
+            this.coneMesh.position.set(-1.75, -this.objectDistance *2, 0)
+            this.torusKnotMesh.position.set(1.75, -this.objectDistance * 3, 0)
 
             this.torusMesh.scale.setScalar(1)
             this.coneMesh.scale.setScalar(1)
@@ -118,7 +121,7 @@ export default class Environment{
     SetParticles(){
         for (let i = 0; i < this.count; i++) {
             this.positions[i * 3] = (Math.random() - 0.5) * 10
-            this.positions[i * 3 + 1] = this.objectDistance * 0.5 - Math.random() * this.objectDistance * this.sectionMeshes.length
+            this.positions[i * 3 + 1] = this.objectDistance * 0.5 - Math.random() * this.objectDistance * 4
             this.positions[i * 3 + 2] = (Math.random() - 0.5) * 10
         }
         
@@ -131,6 +134,9 @@ export default class Environment{
         this.directionalLight.position.set(1, 1, 0)
         this.scene.add(this.directionalLight)
 
+        this.ambientLight = new THREE.AmbientLight()
+        this.scene.add(this.ambientLight)
+
         if(this.debug.active){
             this.lightsFolder.add(this.directionalLight, 'intensity', 0, 10, 1).name("Light Intensity")
             this.lightsFolder.add(this.directionalLight.position, 'x', -5, 5, 0.001).name('Light PosX')
@@ -140,7 +146,18 @@ export default class Environment{
     }
 
     Update(){
-        for (let i = 0; i < this.sectionMeshes.length; i++) {
+        const currentSection = this.scroll.GetCurrentSection();
+
+        if(currentSection === 0){
+            this.astronaut.animation.actions.salute.play();
+        } 
+        else{
+            this.astronaut.animation.actions.salute.stopFading();
+            this.astronaut.animation.actions.salute.reset(); 
+        }
+
+        
+        for (let i = 1; i < this.sectionMeshes.length; i++) {
             this.sectionMeshes[i].rotation.x += this.time.delta * 0.0001
             this.sectionMeshes[i].rotation.y += this.time.delta * 0.00012
         }
