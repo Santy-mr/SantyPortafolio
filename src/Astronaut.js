@@ -17,7 +17,7 @@ export default class Astronaut {
 
     SetModels() {
         this.model = this.resource.scene
-        this.scene.add(this.model)
+        // this.scene.add(this.model)
 
         this.model.traverse((child) => {
             if (child instanceof THREE.Mesh) {

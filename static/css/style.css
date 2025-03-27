@@ -8,22 +8,35 @@
 }
 
 :root {
-  --background-color: #050515;
-  
-  --primary-color: #ffffff;
-  --secondary-color: #8a4e95;
-  --text-color: #ffffff;
+  --background-color: #050515;  
 
-  --font-size-heading: 9vmin;
-  --font-size-base: 1.5vmin: 
+  --text-color: #F5F5FA;
+  --accent-color: #181836; 
+  --highlight-color: #8B5CF6;
+  --interactive-color: #4A90E2;
+
+  --font-size-000: clamp(1.125rem, 0.891rem + 1.1702vw, 2.5rem);
+  --font-size-100: clamp(1.35rem, 1.0479rem + 1.5106vw, 3.125rem);
+  --font-size-200: clamp(1.62rem, 1.2309rem + 1.9457vw, 3.9063rem);
+  --font-size-300: clamp(1.944rem, 1.4438rem + 2.5011vw, 4.8828rem);
+  --font-size-400: clamp(2.3328rem, 1.691rem + 3.2091vw, 6.1035rem);
+  --font-size-500: clamp(2.7994rem, 1.9772rem + 4.1107vw, 7.6294rem);
+} 
+
+@font-face {
+  font-family: 'MyFont';
+  src: url('../fonts/Raleway-Regular.woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  font-family: 'MyFont';
 }
 
 body{
   background-color: var(--background-color);
-}
-
-html {
-  /* scroll-snap-type: y mandatory; */
 }
 
 canvas {
@@ -33,10 +46,17 @@ canvas {
   outline: none;
 }
 
-h1 {
-  color: var(--primary-color);
+.header{
+  color: var(--text-color);
+  font-size: var(--font-size-500);
   text-transform: uppercase;
-  font-size: var(--font-size-heading);
+  letter-spacing: 2px;
+}
+
+.subheader{
+  color: var(--highlight-color);
+  font-size: var(--font-size-200);
+  letter-spacing: 2px;
 }
 
 .section {
@@ -46,17 +66,17 @@ h1 {
   flex-direction: column;
   height: 100vh;
   position: relative;
-  font-family: 'Cabin', sans-serif;
   padding-inline: 10%;
   flex-wrap: wrap;
 }
 
 .section:first-child{
   align-items: center;
+  text-align: center;
 }
 
 .section p {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-000);
   color: white;
   max-width: 50%;
 }
@@ -85,7 +105,7 @@ section:nth-child(odd) {
   .section:nth-child(odd) {
     justify-content: center;
     align-items: center;
-    text-align: start;
+    text-align: center;
 
     p {
       font-size: 2vmax;

@@ -35,8 +35,6 @@ export default class Time extends EventEmitter {
 
         this.trigger('animate')
 
-        this.TrackFps();
-
         window.requestAnimationFrame(() => {
             this.Animate();
         })
