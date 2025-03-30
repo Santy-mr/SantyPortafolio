@@ -1,4 +1,4 @@
-import EventEmitter from "../static/utils/EventEmitter.js";
+import EventEmitter from "../utils/EventEmitter.js";
 import Application from "./Application.js";
 import gsap from "gsap";
 

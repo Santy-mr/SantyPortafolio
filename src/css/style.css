@@ -15,12 +15,14 @@
   --highlight-color: #8B5CF6;
   --interactive-color: #4A90E2;
 
-  --font-size-000: clamp(1.125rem, 0.891rem + 1.1702vw, 2.5rem);
-  --font-size-100: clamp(1.35rem, 1.0479rem + 1.5106vw, 3.125rem);
-  --font-size-200: clamp(1.62rem, 1.2309rem + 1.9457vw, 3.9063rem);
-  --font-size-300: clamp(1.944rem, 1.4438rem + 2.5011vw, 4.8828rem);
-  --font-size-400: clamp(2.3328rem, 1.691rem + 3.2091vw, 6.1035rem);
-  --font-size-500: clamp(2.7994rem, 1.9772rem + 4.1107vw, 7.6294rem);
+  --font-size-000: clamp(0.7813rem, 0.6419rem + 0.6968vw, 1.6rem);
+  --font-size-100: clamp(0.9375rem, 0.7566rem + 0.9043vw, 2rem);
+  --font-size-200: clamp(1.125rem, 0.891rem + 1.1702vw, 2.5rem);
+  --font-size-300: clamp(1.35rem, 1.0479rem + 1.5106vw, 3.125rem);
+  --font-size-400: clamp(1.62rem, 1.2309rem + 1.9457vw, 3.9063rem);
+  --font-size-500: clamp(1.944rem, 1.4438rem + 2.5011vw, 4.8828rem);
+  --font-size-600: clamp(2.3328rem, 1.691rem + 3.2091vw, 6.1035rem);
+  --font-size-700: clamp(2.7994rem, 1.9772rem + 4.1107vw, 7.6294rem);
 } 
 
 @font-face {
@@ -46,16 +48,32 @@ canvas {
   outline: none;
 }
 
-.header{
+.entry-header{
   color: var(--text-color);
-  font-size: var(--font-size-500);
+  font-size: var(--font-size-700);
   text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.header{
+  color: var(--highlight-color);
+  font-size: var(--font-size-400);
   letter-spacing: 2px;
 }
 
 .subheader{
   color: var(--highlight-color);
-  font-size: var(--font-size-200);
+  font-size: var(--font-size-600);
+  letter-spacing: 2px;
+}
+
+.body{
+  font-size: var(--font-size-100);
+  letter-spacing: 2px;
+}
+
+.caption{
+  font-size: var(--font-size-000);
   letter-spacing: 2px;
 }
 
@@ -83,6 +101,9 @@ canvas {
 
 section:nth-child(odd) {
   align-items: flex-end;
+  p {
+    text-align: end;
+  }
 }
 
 .grid-container {

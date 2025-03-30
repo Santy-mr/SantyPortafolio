@@ -1,11 +1,11 @@
 import * as THREE from 'three'
-import Sizes from '../static/utils/Sizes.js'
-import Time from '../static/utils/Time.js'
-import Debug from '../static/utils/Debug.js'
+import Sizes from '../utils/Sizes.js'
+import Time from '../utils/Time.js'
+import Debug from '../utils/Debug.js'
 import Camera from './Camera.js'
 import Sources from './Sources.js'
 import Renderer from './Renderer.js'
-import Resources from '../static/utils/Resources.js'
+import Resources from '../utils/Resources.js'
 import World from './World.js'
 
 let instance = null
