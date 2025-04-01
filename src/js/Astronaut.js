@@ -29,9 +29,6 @@ export default class Astronaut {
                 child.material.map.needsUpdate = true;
             }
         })
-
-        this.model.position.set(0, -1.25, 1)
-        this.model.scale.setScalar(1)
     }
 
     SetAnimation(){

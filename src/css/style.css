@@ -112,17 +112,16 @@ section:nth-child(odd) {
 }
 
 .grid-container {
+  display: grid;
   gap: 2rem;
   width: 40%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
   justify-items: center;
   padding-block-start: clamp(1rem, 1dvb, 2rem);
 }
 
 .icon {
-  width: 80px;
-  height: 80px;
+  width: clamp(2.5rem, 4vw, 5rem);
   border-radius: 20%;
 }
 
@@ -132,9 +131,9 @@ section:nth-child(odd) {
   .section:nth-child(odd) {
     justify-content: center;
     align-items: center;
-    text-align: center;
-
+    
     p {
+      text-align: center;
       font-size: 2vmax;
     }
   }

@@ -93,19 +93,23 @@ export default class Environment{
             this.torusMesh.position.set(0, -this.objectDistance * 1, 0)
             this.coneMesh.position.set(0, -this.objectDistance * 2, 0)
             this.torusKnotMesh.position.set(0, -this.objectDistance * 3, 0)
+            this.astronaut.model.position.set(0, -1, 1)
 
             this.torusMesh.scale.setScalar(0.5)
             this.coneMesh.scale.setScalar(0.5)
             this.torusKnotMesh.scale.setScalar(0.5)
+            this.astronaut.model.scale.setScalar(0.8)
 
         } else {
             this.torusMesh.position.set(1.75, -this.objectDistance * 1, 0)
             this.coneMesh.position.set(-1.75, -this.objectDistance *2, 0)
             this.torusKnotMesh.position.set(1.75, -this.objectDistance * 3, 0)
-
+            this.astronaut.model.position.set(0, -1.25, 1)
+            
             this.torusMesh.scale.setScalar(1)
             this.coneMesh.scale.setScalar(1)
             this.torusKnotMesh.scale.setScalar(1)
+            this.astronaut.model.scale.setScalar(1)
         }
     }
 
