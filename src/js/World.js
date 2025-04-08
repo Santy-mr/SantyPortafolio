@@ -25,8 +25,6 @@ export default class World {
     Update() {
         if (this.environment) {
             this.environment.Update();
-            this.scroll.Update();
-            this.cursor.Update();
             this.astronaut ? this.astronaut.Update() : null
         }
     }

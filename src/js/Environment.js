@@ -32,9 +32,9 @@ export default class Environment{
     }
 
     SetGeometrys(){
-        this.torusGeometry = new THREE.TorusGeometry(1, 0.4, 16, 60)
-        this.coneGeometry = new THREE.ConeGeometry(1, 2, 32)
-        this.torusKnotGeometry = new THREE.TorusKnotGeometry(0.8, 0.35, 100, 16)
+        this.torusGeometry = new THREE.TorusGeometry(1, 0.4, 16, 48)
+        this.coneGeometry = new THREE.ConeGeometry(1, 2, 24)
+        this.torusKnotGeometry = new THREE.TorusKnotGeometry(0.8, 0.35, 64, 12)
 
         this.count = 4000
         this.positions = new Float32Array(this.count * 3)

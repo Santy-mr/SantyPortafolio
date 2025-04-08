@@ -25,8 +25,6 @@ export default class Astronaut {
                 child.material.map.magFilter = THREE.NearestFilter;
                 child.material.normalMap.minFilter = THREE.NearestFilter;
                 child.material.normalMap.magFilter = THREE.NearestFilter;
-                child.material.normalMap.needsUpdate = true;
-                child.material.map.needsUpdate = true;
             }
         })
     }
