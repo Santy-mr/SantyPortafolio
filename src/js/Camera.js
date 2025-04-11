@@ -10,6 +10,9 @@ export default class Camera {
         this.time = this.application.time
         this.canvas = this.application.canvas
 
+        this.minClamp = new THREE.Vector3(-0.24, -0.24, 0)
+        this.maxClamp = new THREE.Vector3(0.24, 0.24, 0)
+
         this.SetInstance();
     }
 
@@ -37,6 +40,7 @@ export default class Camera {
             this.parallaxY = -this.cursor.y * 0.5
             this.cameraGroup.position.x += (this.parallaxX - this.cameraGroup.position.x) * this.time.delta * 0.005
             this.cameraGroup.position.y += (this.parallaxY - this.cameraGroup.position.y) * this.time.delta * 0.005
+            this.cameraGroup.position.clamp(this.minClamp, this.maxClamp)
         }
     }
 }

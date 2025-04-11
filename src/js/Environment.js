@@ -66,7 +66,7 @@ export default class Environment{
             depthWrite: false,
             color: '#ffeded',
             sizeAttenuation: true,
-            size: 0.03,
+            size: 0.05,
             blending: THREE.AdditiveBlending
         })
 
