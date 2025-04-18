@@ -3,6 +3,7 @@ import Environment from "./Environment.js"
 import Scroll from "./Scroll.js"
 import Cursor from "./Cursor.js"
 import Astronaut from "./Astronaut.js"
+import Planets from "./Planets.js"
 
 export default class World {
     constructor() {
@@ -16,8 +17,9 @@ export default class World {
 
         this.resources.on('loaded', () => {
             this.astronaut = new Astronaut()
+            this.planet = new Planets()
 
-            this.environment = new Environment(this.astronaut);
+            this.environment = new Environment(this.astronaut, this.planet);
             this.environment.sectionMeshes ?  this.scroll.SetSectionMeshes(this.environment.sectionMeshes) : null;
         })
     }
@@ -26,6 +28,7 @@ export default class World {
         if (this.environment) {
             this.environment.Update();
             this.astronaut ? this.astronaut.Update() : null
+            this.planet ? this.planet.Update() : null
         }
     }
 }

@@ -15,6 +15,12 @@ export default [
         name:"astronautModel",
         type:"gltf",
         path:"../../models/Astronaut.glb",
-        category:"model",
+        category:"model"
+    },
+    {
+        name:"planetModel",
+        type:"gltf",
+        path:"../../models/Planet.glb",
+        category:"model"
     }
 ]

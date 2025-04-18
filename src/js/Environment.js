@@ -2,7 +2,7 @@ import Application from "./Application.js";
 import * as THREE from 'three'
 
 export default class Environment{
-    constructor(astronaut){
+    constructor(astronaut, planet){
         this.application = new Application()
 
         this.scene = this.application.scene
@@ -14,6 +14,7 @@ export default class Environment{
         this.scroll = this.world.scroll
 
         this.astronaut = astronaut
+        this.planet = planet
 
         this.objectDistance = 4;
 
@@ -32,7 +33,6 @@ export default class Environment{
     }
 
     SetGeometrys(){
-        this.torusGeometry = new THREE.TorusGeometry(1, 0.4, 16, 48)
         this.coneGeometry = new THREE.ConeGeometry(1, 2, 24)
         this.torusKnotGeometry = new THREE.TorusKnotGeometry(0.8, 0.35, 64, 12)
 
@@ -77,36 +77,35 @@ export default class Environment{
     }
 
     SetMesh(){
-        this.torusMesh = new THREE.Mesh(this.torusGeometry, this.meshsMaterial)
         this.coneMesh = new THREE.Mesh(this.coneGeometry, this.meshsMaterial)
         this.torusKnotMesh = new THREE.Mesh(this.torusKnotGeometry, this.meshsMaterial)
 
         this.PositionMeshes()
         this.ResponsiveBehavior()
         
-        this.scene.add(this.torusMesh, this.coneMesh, this.torusKnotMesh)
-        this.sectionMeshes = [this.astronaut, this.torusMesh, this.coneMesh, this.torusKnotMesh]
+        this.scene.add(this.coneMesh, this.torusKnotMesh)
+        this.sectionMeshes = [this.astronaut, this.planet, this.coneMesh, this.torusKnotMesh]
     }
 
     PositionMeshes(isMobile = false){
         if (isMobile) {
-            this.torusMesh.position.set(0, -this.objectDistance * 1, 0)
+            this.planet.model.position.set(0, -this.objectDistance * 1, 0)
             this.coneMesh.position.set(0, -this.objectDistance * 2, 0)
-            this.torusKnotMesh.position.set(0, -this.objectDistance * 3, 0)
+            this.torusKnotMesh.position.set(0, -this.objectDistance * 4, 0)
             this.astronaut.model.position.set(0, -1, 1)
 
-            this.torusMesh.scale.setScalar(0.5)
+            this.planet.model.scale.setScalar(0.5)
             this.coneMesh.scale.setScalar(0.5)
             this.torusKnotMesh.scale.setScalar(0.5)
             this.astronaut.model.scale.setScalar(0.8)
 
         } else {
-            this.torusMesh.position.set(1.75, -this.objectDistance * 1, 0)
+            this.planet.model.position.set(1.5, -this.objectDistance * 1, 0)
             this.coneMesh.position.set(-1.75, -this.objectDistance *2, 0)
-            this.torusKnotMesh.position.set(1.75, -this.objectDistance * 3, 0)
+            this.torusKnotMesh.position.set(-1.75, -this.objectDistance * 4, 0)
             this.astronaut.model.position.set(0, -1.25, 1)
             
-            this.torusMesh.scale.setScalar(1)
+            this.planet.model.scale.setScalar(.6)
             this.coneMesh.scale.setScalar(1)
             this.torusKnotMesh.scale.setScalar(1)
             this.astronaut.model.scale.setScalar(1)
@@ -125,7 +124,7 @@ export default class Environment{
     SetParticles(){
         for (let i = 0; i < this.count; i++) {
             this.positions[i * 3] = (Math.random() - 0.5) * 10
-            this.positions[i * 3 + 1] = this.objectDistance * 0.5 - Math.random() * this.objectDistance * 4
+            this.positions[i * 3 + 1] = this.objectDistance * 0.5 - Math.random() * this.objectDistance * 5
             this.positions[i * 3 + 2] = (Math.random() - 0.5) * 10
         }
         
@@ -162,8 +161,8 @@ export default class Environment{
 
         
         for (let i = 1; i < this.sectionMeshes.length; i++) {
-            this.sectionMeshes[i].rotation.x += this.time.delta * 0.0001
-            this.sectionMeshes[i].rotation.y += this.time.delta * 0.00012
+            // this.sectionMeshes[i].rotation.x += this.time.delta * 0.0001
+            // this.sectionMeshes[i].rotation.y += this.time.delta * 0.00012
         }
     }
 }

@@ -16,17 +16,7 @@ export default class Time extends EventEmitter {
             this.Animate();
         })
     }
-
-    TrackFps(){
-        const now = performance.now();
-        this.frames++;
-        if (now - this.lastTime >= 1000) {
-            console.log(`FPS: ${this.frames}`);
-            this.frames = 0;
-            this.lastTime = now;
-        }
-    }
-
+    
     Animate(){
         const currentTime = Date.now();
         this.delta = currentTime - this.current;

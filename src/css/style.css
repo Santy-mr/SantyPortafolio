@@ -38,7 +38,6 @@
 }
 
 html {
-  scroll-snap-type: y mandatory;
   font-family: 'MyFont';
 }
 
@@ -97,7 +96,7 @@ a:hover{
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height: 100dvb;
+  height: 100vb;
   position: relative;
   padding-inline: 10%;
   flex-wrap: wrap;
