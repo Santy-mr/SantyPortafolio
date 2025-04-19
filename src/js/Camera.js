@@ -33,7 +33,7 @@ export default class Camera {
     Update(){
         if(this.application.world && this.application.world.environment && this.application.world.scroll && this.application.world.cursor){
             this.scrollY = this.application.world.scroll.scroll.Y;
-            this.objectsDistance = this.application.world.environment.objectDistance
+            this.objectsDistance = this.application.world.environment.parameters.objectDistance
             this.cursor = this.application.world.cursor.cursor
 
             this.instance.position.y = -this.scrollY / this.sizes.height * this.objectsDistance

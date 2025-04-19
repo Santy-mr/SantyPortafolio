@@ -1,24 +1,12 @@
-import Application from "./Application.js";
+import Model from "./Models.js";
 
-export default class Planets {
+export default class Planets extends Model {
     constructor(){
-        this.application = new Application()
-
-        this.scene = this.application.scene
-        this.resources = this.application.resources
-        this.time = this.application.time
-
-        this.resource = this.resources.items.planetModel
-
-        this.SetModels();
-    }
-
-    SetModels() {
-        this.model = this.resource.scene
-        this.scene.add(this.model)
+        super("planetModel")
+        this.speedPlanetAnim = 0.0001
     }
 
     Update() {
-        this.model.rotation.y += this.time.delta * 0.0001
+        this.model.rotation.y += this.time.delta * this.speedPlanetAnim
     }
 }

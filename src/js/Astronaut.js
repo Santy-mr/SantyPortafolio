@@ -1,33 +1,14 @@
-import Application from "./Application.js";
+
+import Model from './Models.js';
 import * as THREE from 'three'
 
-export default class Astronaut {
+export default class Astronaut extends Model{
     constructor() {
-        this.application = new Application()
+        super("astronautModel")
 
-        this.scene = this.application.scene
-        this.resources = this.application.resources
-        this.time = this.application.time
+        this.speedAstronautAnim = 0.0005
 
-        this.resource = this.resources.items.astronautModel
-
-        this.SetModels();
         this.SetAnimation();
-    }
-
-    SetModels() {
-        this.model = this.resource.scene
-        this.scene.add(this.model)
-
-        this.model.traverse((child) => {
-            if (child instanceof THREE.Mesh) {   
-                child.material.map.colorSpace = THREE.SRGBColorSpace;
-                child.material.map.minFilter = THREE.NearestFilter;
-                child.material.map.magFilter = THREE.NearestFilter;
-                child.material.normalMap.minFilter = THREE.NearestFilter;
-                child.material.normalMap.magFilter = THREE.NearestFilter;
-            }
-        })
     }
 
     SetAnimation(){
@@ -40,6 +21,6 @@ export default class Astronaut {
     }
 
     Update(){
-        this.animation.mixer.update(this.time.delta * 0.0005)
+        this.animation.mixer.update(this.time.delta * this.speedAstronautAnim)
     }
 }

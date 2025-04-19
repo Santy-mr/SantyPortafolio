@@ -16,13 +16,55 @@ export default class Environment{
         this.astronaut = astronaut
         this.planet = planet
 
-        this.objectDistance = 4;
+        this.particlesGeometry = null
+        this.particles = null
 
         if(this.debug.active){
             this.lightsFolder = this.debug.ui.addFolder("Lights")
-            this.materialsFolder = this.debug.ui.addFolder("Lights")
+            this.materialsFolder = this.debug.ui.addFolder("Particles")
+            this.environmentFolder = this.debug.ui.addFolder("Env Map")
         }
-        this.parameters = { materialColor: '#ffeded' }
+
+        this.parameters = { 
+            materialColor: '#ffeded',
+            lightColor: '#ffffff',
+            objectDistance: 4,
+            sections: 5,
+            count: 4000,
+            envMapInt: 1.5
+        }
+
+        this.layouts = {
+            desktop: {
+                positions: {
+                  planet: [1.5, -this.parameters.objectDistance * 1, 0],
+                  cone: [-1.75, -this.parameters.objectDistance * 2, 0],
+                  torusKnot: [-1.75, -this.parameters.objectDistance * 4, 0],
+                  astronaut: [0, -1.25, 1]
+                },
+                scales: {
+                  planet: 0.6,
+                  cone: 1,
+                  torusKnot: 1,
+                  astronaut: 1
+                }
+            },
+
+            mobile: {
+              positions: {
+                planet: [0, -this.parameters.objectDistance * 1, 0],
+                cone: [0, -this.parameters.objectDistance * 2, 0],
+                torusKnot: [0, -this.parameters.objectDistance * 4, 0],
+                astronaut: [0, -1, 1]
+              },
+              scales: {
+                planet: 0.35,
+                cone: 0.5,
+                torusKnot: 0.5,
+                astronaut: 0.8
+              }
+            }
+        };
 
         this.SetGeometrys()
         this.SetTextures()
@@ -36,8 +78,7 @@ export default class Environment{
         this.coneGeometry = new THREE.ConeGeometry(1, 2, 24)
         this.torusKnotGeometry = new THREE.TorusKnotGeometry(0.8, 0.35, 64, 12)
 
-        this.count = 4000
-        this.positions = new Float32Array(this.count * 3)
+        this.positions = new Float32Array(this.parameters.count * 3)
         this.particlesGeometry = new THREE.BufferGeometry()
         this.particlesGeometry.setAttribute('position', new THREE.BufferAttribute(this.positions, 3))
     }
@@ -48,17 +89,17 @@ export default class Environment{
         this.textures.particlesTexture = this.resources.items.particlesTexture
         this.textures.particlesTexture.colorSpace = THREE.SRGBColorSpace
 
-        this.textures.gradientTexture = this.resources.items.gradientTexture
-        this.textures.gradientTexture.colorSpace = THREE.SRGBColorSpace
-        this.textures.gradientTexture.magFilter = THREE.NearestFilter
+        this.textures.envMap = this.resources.items.environmentMapTexture
+        this.textures.envMap.mapping = THREE.EquirectangularReflectionMapping
+        this.scene.environment = this.textures.envMap
+        this.scene.environmentIntensity = this.parameters.envMapInt
+
+        if(this.debug.active){
+            this.environmentFolder.add(this.parameters, 'envMapInt', 0, 10, 0.01).name('Env Map Intensity').onChange(() => {this.scene.environmentIntensity = this.parameters.envMapInt})
+        }
     }
 
     SetMaterials(){
-        this.meshsMaterial = new THREE.MeshToonMaterial({
-            gradientMap: this.textures.gradientTexture,
-            color: '#0000ff'
-        })
-
         this.particlesMaterial = new THREE.PointsMaterial({
             map: this.textures.particlesTexture,
             alphaMap: this.textures.particlesTexture,
@@ -88,28 +129,19 @@ export default class Environment{
     }
 
     PositionMeshes(isMobile = false){
-        if (isMobile) {
-            this.planet.model.position.set(0, -this.objectDistance * 1, 0)
-            this.coneMesh.position.set(0, -this.objectDistance * 2, 0)
-            this.torusKnotMesh.position.set(0, -this.objectDistance * 4, 0)
-            this.astronaut.model.position.set(0, -1, 1)
+        const layout = isMobile ? this.layouts.mobile : this.layouts.desktop;
 
-            this.planet.model.scale.setScalar(0.5)
-            this.coneMesh.scale.setScalar(0.5)
-            this.torusKnotMesh.scale.setScalar(0.5)
-            this.astronaut.model.scale.setScalar(0.8)
-
-        } else {
-            this.planet.model.position.set(1.5, -this.objectDistance * 1, 0)
-            this.coneMesh.position.set(-1.75, -this.objectDistance *2, 0)
-            this.torusKnotMesh.position.set(-1.75, -this.objectDistance * 4, 0)
-            this.astronaut.model.position.set(0, -1.25, 1)
-            
-            this.planet.model.scale.setScalar(.6)
-            this.coneMesh.scale.setScalar(1)
-            this.torusKnotMesh.scale.setScalar(1)
-            this.astronaut.model.scale.setScalar(1)
-        }
+        const { positions, scales } = layout;
+        
+        this.planet.model.position.set(...positions.planet);
+        this.coneMesh.position.set(...positions.cone);
+        this.torusKnotMesh.position.set(...positions.torusKnot);
+        this.astronaut.model.position.set(...positions.astronaut);
+        
+        this.planet.model.scale.setScalar(scales.planet);
+        this.coneMesh.scale.setScalar(scales.cone);
+        this.torusKnotMesh.scale.setScalar(scales.torusKnot);
+        this.astronaut.model.scale.setScalar(scales.astronaut);
     }
 
     ResponsiveBehavior(){
@@ -122,9 +154,9 @@ export default class Environment{
     }
     
     SetParticles(){
-        for (let i = 0; i < this.count; i++) {
+        for (let i = 0; i < this.parameters.count; i++) {
             this.positions[i * 3] = (Math.random() - 0.5) * 10
-            this.positions[i * 3 + 1] = this.objectDistance * 0.5 - Math.random() * this.objectDistance * 5
+            this.positions[i * 3 + 1] = this.parameters.objectDistance * 0.5 - Math.random() * this.parameters.objectDistance * this.parameters.sections
             this.positions[i * 3 + 2] = (Math.random() - 0.5) * 10
         }
         
@@ -133,15 +165,13 @@ export default class Environment{
     }
 
     SetLight(){
-        this.directionalLight = new THREE.DirectionalLight('#ffffff', 3)
+        this.directionalLight = new THREE.DirectionalLight(this.parameters.lightColor, 3)
         this.directionalLight.position.set(1, 1, 0)
         this.scene.add(this.directionalLight)
 
-        this.ambientLight = new THREE.AmbientLight()
-        this.scene.add(this.ambientLight)
-
         if(this.debug.active){
             this.lightsFolder.add(this.directionalLight, 'intensity', 0, 10, 1).name("Light Intensity")
+            this.lightsFolder.addColor(this.parameters, 'lightColor').onChange(() =>{ this.directionalLight.color.set(this.parameters.lightColor) })
             this.lightsFolder.add(this.directionalLight.position, 'x', -5, 5, 0.001).name('Light PosX')
             this.lightsFolder.add(this.directionalLight.position, 'y', -5, 5, 0.001).name('Light PosY')
             this.lightsFolder.add(this.directionalLight.position, 'z', -5, 5, 0.001).name('Light PosZ')

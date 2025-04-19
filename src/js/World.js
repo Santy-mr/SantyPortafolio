@@ -14,10 +14,17 @@ export default class World {
         
         this.scene = this.application.scene
         this.resources = this.application.resources
+        this.debug = this.application.debug
 
         this.resources.on('loaded', () => {
             this.astronaut = new Astronaut()
             this.planet = new Planets()
+
+            if(this.debug.active){
+                this.animFolders = this.debug.ui.addFolder("Objects")
+                this.animFolders.add(this.astronaut, 'speedAstronautAnim', 0, 0.001, 0.0001)
+                this.animFolders.add(this.planet, 'speedPlanetAnim', 0, 0.001, 0.0001)
+            }
 
             this.environment = new Environment(this.astronaut, this.planet);
             this.environment.sectionMeshes ?  this.scroll.SetSectionMeshes(this.environment.sectionMeshes) : null;

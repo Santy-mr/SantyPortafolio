@@ -1,7 +1,6 @@
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader, GLTFLoader, RGBELoader } from 'three/examples/jsm/Addons.js'
 import EventEmitter from "./EventEmitter.js";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 
 export default class Resources extends EventEmitter {
     constructor(sources) {
@@ -22,6 +21,7 @@ export default class Resources extends EventEmitter {
             gltfLoader: new GLTFLoader(),
             textureLoader: new THREE.TextureLoader(),
             dracoLoader: new DRACOLoader(),
+            rgbeLoader: new RGBELoader()
         }
         this.loaders.dracoLoader.setDecoderPath("/draco/")
         this.loaders.gltfLoader.setDRACOLoader(this.loaders.dracoLoader)
@@ -42,10 +42,18 @@ export default class Resources extends EventEmitter {
                     this.loaders.gltfLoader.load(
                         source.path, (file) => {
                             this.SourceLoaded(source, file);
-                        }, () => {}, ()=>{ console.log("error") }
+                        }
                     )
                 break;
 
+                case 'hdr':
+                    this.loaders.rgbeLoader.load(
+                        source.path, (file) => {
+                            this.SourceLoaded(source, file)
+                        }
+                    )
+                break;
+                
                 default:
                     console.log("No existe ningun archivo de este tipo");
 

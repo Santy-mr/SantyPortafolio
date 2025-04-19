@@ -2,13 +2,13 @@ export default [
     {
         name:"particlesTexture",
         type:"texture",
-        path:"../../textures/5.webp",
+        path:"../../textures/starTexture.png",
         category:"particles"
     },
     {
-        name:"gradientTexture",
-        type:"texture",
-        path:"../../textures/3.webp",
+        name:"environmentMapTexture",
+        type:"hdr",
+        path:"../../textures/EnvironmentMap.hdr",
         category:"general"
     },
     {
