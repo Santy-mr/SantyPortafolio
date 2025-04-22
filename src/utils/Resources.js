@@ -12,16 +12,18 @@ export default class Resources extends EventEmitter {
         this.toLoad = this.sources.length;
         this.loaded = 0;
 
+        this.loadingManager = new THREE.LoadingManager()
+
         this.SetLoaders()
         this.StartLoading()
     }
 
     SetLoaders() {
         this.loaders = {
-            gltfLoader: new GLTFLoader(),
-            textureLoader: new THREE.TextureLoader(),
-            dracoLoader: new DRACOLoader(),
-            rgbeLoader: new RGBELoader()
+            gltfLoader: new GLTFLoader(this.loadingManager),
+            textureLoader: new THREE.TextureLoader(this.loadingManager),
+            dracoLoader: new DRACOLoader(this.loadingManager),
+            rgbeLoader: new RGBELoader(this.loadingManager)
         }
         this.loaders.dracoLoader.setDecoderPath("/draco/")
         this.loaders.gltfLoader.setDRACOLoader(this.loaders.dracoLoader)
@@ -65,9 +67,9 @@ export default class Resources extends EventEmitter {
         this.items[source.name] = file;
         this.loaded++;
 
-        if (this.loaded === this.toLoad) {
+        this.loadingManager.onLoad = (() => {
             this.trigger('loaded');
-        }
+        })
     }
 
 }

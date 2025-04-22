@@ -181,18 +181,12 @@ export default class Environment{
     Update(){
         const currentSection = this.scroll.GetCurrentSection();
 
-        if(currentSection === 0){
+        if(currentSection === 0 || currentSection === 1){
             this.astronaut.animation.actions.salute.play();
         } 
         else{
             this.astronaut.animation.actions.salute.stopFading();
             this.astronaut.animation.actions.salute.reset(); 
-        }
-
-        
-        for (let i = 1; i < this.sectionMeshes.length; i++) {
-            // this.sectionMeshes[i].rotation.x += this.time.delta * 0.0001
-            // this.sectionMeshes[i].rotation.y += this.time.delta * 0.00012
         }
     }
 }

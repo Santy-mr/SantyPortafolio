@@ -7,6 +7,7 @@ import Sources from './Sources.js'
 import Renderer from './Renderer.js'
 import Resources from '../utils/Resources.js'
 import World from './World.js'
+import LoadingScreen from './LoadingScreen.js'
 
 let instance = null
 
@@ -23,6 +24,7 @@ export default class Application {
 
         this.scene = new THREE.Scene();
         this.resources = new Resources(Sources)
+        this.loadingScreen = new LoadingScreen()
         this.camera = new Camera();
         this.renderer = new Renderer()
 
