@@ -181,12 +181,12 @@ export default class Environment{
     Update(){
         const currentSection = this.scroll.GetCurrentSection();
 
-        if(currentSection === 0 || currentSection === 1){
-            this.astronaut.animation.actions.salute.play();
-        } 
-        else{
-            this.astronaut.animation.actions.salute.stopFading();
-            this.astronaut.animation.actions.salute.reset(); 
-        }
+        // if(currentSection === 0 || currentSection === 1){
+        //     this.astronaut.animation.actions.salute.play();
+        // } 
+        // else{
+        //     this.astronaut.animation.actions.salute.stopFading();
+        //     this.astronaut.animation.actions.salute.reset(); 
+        // }
     }
 }

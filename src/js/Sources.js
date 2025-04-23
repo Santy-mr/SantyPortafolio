@@ -6,6 +6,12 @@ export default [
         category:"particles"
     },
     {
+        name:"mainTexture",
+        type:"texture",
+        path:"../../textures/MainTex.png",
+        category:"general"
+    },
+    {
         name:"environmentMapTexture",
         type:"hdr",
         path:"../../textures/EnvironmentMap.hdr",

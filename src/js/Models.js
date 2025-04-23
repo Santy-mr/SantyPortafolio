@@ -18,18 +18,5 @@ export default class Model {
     SetModel(){
         this.model = this.resource.scene
         this.scene.add(this.model)
-
-        this.model.traverse((child) => {
-            if (child instanceof THREE.Mesh && child.material && child.material.map) {
-                child.material.map.colorSpace = THREE.SRGBColorSpace;
-                child.material.map.minFilter = THREE.NearestFilter;
-                child.material.map.magFilter = THREE.NearestFilter;
-                
-                if (child.material.normalMap) {
-                    child.material.normalMap.minFilter = THREE.NearestFilter;
-                    child.material.normalMap.magFilter = THREE.NearestFilter;
-                }
-            }
-        });
     }
 }
