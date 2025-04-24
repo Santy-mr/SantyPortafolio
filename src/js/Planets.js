@@ -1,5 +1,6 @@
 import Model from "./Models.js";
 
+
 export default class Planets extends Model {
     constructor(){
         super("planetModel")

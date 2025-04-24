@@ -11,12 +11,29 @@ export default class Model {
 
         this.resourceName = modelName
         this.resource = this.resources.items[this.resourceName]
+    
+        this.SetTexture();
+        this.SetModel();
+    }
 
-        this.SetModel()
+    SetTexture(){
+        this.mainTexture = this.resources.items.mainTexture
+        this.mainTexture.colorSpace = THREE.SRGBColorSpace
+        this.mainTexture.needsUpdate = true
+        this.mainTexture.generateMipmaps = false
+        this.mainTexture.minFilter = THREE.NearestFilter
+        this.mainTexture.magFilter = THREE.NearestFilter
+        this.mainTexture.flipY = false
     }
 
     SetModel(){
         this.model = this.resource.scene
         this.scene.add(this.model)
+
+        this.model.traverse((child) => {
+            if(child instanceof THREE.Mesh && child.material){
+                child.material.map = this.mainTexture
+            }
+        });
     }
 }
