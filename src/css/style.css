@@ -11,7 +11,6 @@
   --background-color: #050515;  
 
   --text-color: #F5F5FA;
-  --text-color-2: #fdd4d4;
   --accent-color: #181836; 
   --highlight-color: #8B5CF6;
   --interactive-color: #4a90e2;
@@ -59,6 +58,7 @@ canvas {
 
 a:hover{
   color: var(--text-color);
+  transition: color 500ms linear;
 }
 
 .entry-header{
@@ -93,7 +93,7 @@ a:hover{
 }
 
 .shadow{
-  filter: drop-shadow(-8px 8px 20px var(--text-color-2));
+  filter: drop-shadow(-8px 8px 20px var(--star-color));
 }
 
 .section {
