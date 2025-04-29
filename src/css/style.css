@@ -87,6 +87,19 @@ a:hover{
   letter-spacing: 2px;
 }
 
+.header,
+.body{
+  opacity: 0;
+  animation: progress linear forwards;
+  animation-timeline: view();
+  animation-range-start: entry;
+  animation-range-end: 700px;
+}
+
+@keyframes progress {
+  to {opacity: 1;}
+}
+
 .caption{
   font-size: var(--font-size-000);
   letter-spacing: 2px;
@@ -176,7 +189,6 @@ label {
   border-radius: 30px;
   background: linear-gradient(90deg, var(--highlight-color) 50%, var(--sunset-orange) 100%);
 }
-
 
 @media screen and (width < 600px) {
 
