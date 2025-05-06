@@ -8,7 +8,7 @@ export default class Astronaut extends Model {
 
         this.speedAstronautAnim = 0.0005
 
-        // this.SetAnimation();
+        this.SetAnimation();
     }
 
     SetAnimation() {
@@ -21,6 +21,6 @@ export default class Astronaut extends Model {
     }
 
     Update() {
-        // this.animation.mixer.update(this.time.delta * this.speedAstronautAnim)
+        this.animation.mixer.update(this.time.delta * this.speedAstronautAnim)
     }
 }

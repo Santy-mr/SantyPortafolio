@@ -31,7 +31,7 @@ export default class Environment{
             objectDistance: 4,
             sections: 5,
             count: 4000,
-            envMapInt: 1.5
+            envMapInt: 2
         }
 
         this.layouts = {
@@ -181,12 +181,12 @@ export default class Environment{
     Update(){
         const currentSection = this.scroll.GetCurrentSection();
 
-        // if(currentSection === 0 || currentSection === 1){
-        //     this.astronaut.animation.actions.salute.play();
-        // } 
-        // else{
-        //     this.astronaut.animation.actions.salute.stopFading();
-        //     this.astronaut.animation.actions.salute.reset(); 
-        // }
+        if(currentSection === 0 || currentSection === 1){
+            this.astronaut.animation.actions.salute.play();
+        } 
+        else{
+            this.astronaut.animation.actions.salute.stopFading();
+            this.astronaut.animation.actions.salute.reset(); 
+        }
     }
 }
