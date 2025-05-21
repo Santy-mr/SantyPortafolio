@@ -8,6 +8,7 @@ import Renderer from './Renderer.js'
 import Resources from '../utils/Resources.js'
 import World from './World.js'
 import LoadingScreen from './LoadingScreen.js'
+import Animations from './Animations.js'
 
 let instance = null
 
@@ -27,6 +28,7 @@ export default class Application {
         this.loadingScreen = new LoadingScreen()
         this.camera = new Camera();
         this.renderer = new Renderer()
+        this.animations = new Animations();
 
         this.world = new World()
 

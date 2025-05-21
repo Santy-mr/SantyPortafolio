@@ -1,6 +1,5 @@
 import EventEmitter from "../utils/EventEmitter.js";
 import Application from "./Application.js";
-import gsap from "gsap";
 
 export default class Scroll extends EventEmitter {
     constructor() {
@@ -21,14 +20,6 @@ export default class Scroll extends EventEmitter {
 
             if (this.newSection != this.currentSection && this.sectionMeshes.length > 0) {
                 this.currentSection = this.newSection
-
-                // gsap.to(this.sectionMeshes[this.currentSection].rotation, {
-                //     duration: 1.5,
-                //     ease: 'power2.inOut',
-                //     x: '+=6',
-                //     y: '+=3',
-                //     z: '+=1.5'
-                // })
             }
         })
 
