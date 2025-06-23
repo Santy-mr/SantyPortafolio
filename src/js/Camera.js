@@ -2,9 +2,8 @@ import * as THREE from 'three';
 import Application from './Application.js';
 
 export default class Camera {
-    constructor(){
-        this.application = new Application();
-        
+    constructor(application){
+        this.application = application;
         this.sizes = this.application.sizes
         this.scene = this.application.scene
         this.time = this.application.time

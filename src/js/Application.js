@@ -25,9 +25,9 @@ export default class Application {
 
         this.scene = new THREE.Scene();
         this.resources = new Resources(Sources)
-        this.loadingScreen = new LoadingScreen()
-        this.camera = new Camera();
-        this.renderer = new Renderer()
+        this.loadingScreen = new LoadingScreen(this);
+        this.camera = new Camera(this);
+        this.renderer = new Renderer(this)
         this.animations = new Animations();
 
         this.world = new World()

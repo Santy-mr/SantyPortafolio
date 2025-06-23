@@ -2,10 +2,10 @@ import Application from "./Application.js";
 import EventEmitter from "../utils/EventEmitter.js";
 
 export default class LoadingScreen extends EventEmitter {
-    constructor(){
+    constructor(application){
         super()
 
-        this.application = new Application()
+        this.application = application;
         this.resources = this.application.resources
         this.canvas = this.application.canvas
         this.loadingManager = this.resources.loadingManager

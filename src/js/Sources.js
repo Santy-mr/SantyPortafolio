@@ -28,5 +28,11 @@ export default [
         type:"gltf",
         path:"../../models/Planet.glb",
         category:"model"
+    },
+        {
+        name:"shuttleModel",
+        type:"gltf",
+        path:"../../models/SpaceShuttle.glb",
+        category:"model"
     }
 ]

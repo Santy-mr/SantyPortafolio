@@ -2,8 +2,8 @@ import * as THREE from 'three'
 import Application from './Application.js'
 
 export default class Renderer {
-    constructor(){
-        this.application = new Application()
+    constructor(application){
+        this.application = application
 
         this.canvas = this.application.canvas
         this.sizes = this.application.sizes
