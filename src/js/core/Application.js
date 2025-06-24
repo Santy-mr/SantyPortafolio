@@ -1,14 +1,14 @@
 import * as THREE from 'three'
-import Sizes from '../utils/Sizes.js'
-import Time from '../utils/Time.js'
-import Debug from '../utils/Debug.js'
-import Camera from './Camera.js'
-import Sources from './Sources.js'
-import Renderer from './Renderer.js'
-import Resources from '../utils/Resources.js'
+import Sizes from '../../utils/Sizes.js'
+import Time from '../../utils/Time.js'
+import Debug from '../../utils/Debug.js'
+import Camera from '../rendering/Camera.js'
+import Sources from '../resources/Sources.js'
+import Renderer from '../rendering/Renderer.js'
+import Resources from '../../utils/Resources.js'
 import World from './World.js'
-import LoadingScreen from './LoadingScreen.js'
-import Animations from './Animations.js'
+import LoadingScreen from '../ui/LoadingScreen.js'
+import Animations from '../controls/Animations.js'
 
 let instance = null
 
@@ -30,7 +30,7 @@ export default class Application {
         this.renderer = new Renderer(this)
         this.animations = new Animations();
 
-        this.world = new World()
+        this.world = new World(this);
 
         this.sizes.on('resize', () => {
             this.Resize();

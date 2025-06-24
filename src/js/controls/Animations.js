@@ -1,4 +1,4 @@
-import EventEmitter from "../utils/EventEmitter";
+import EventEmitter from "../../utils/EventEmitter.js";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";

@@ -2,8 +2,8 @@ import Model from "./Models.js";
 
 
 export default class Planets extends Model {
-    constructor(){
-        super("planetModel")
+    constructor(application) {
+        super(application, "planetModel")
         this.speedPlanetAnim = 0.0001
     }
 

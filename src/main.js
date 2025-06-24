@@ -1,3 +1,3 @@
-import Application from "./js/Application.js";
+import Application from "./js/core/Application.js";
 
 const application = new Application(document.querySelector('#canvas'))

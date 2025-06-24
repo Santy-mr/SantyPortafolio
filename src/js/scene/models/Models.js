@@ -1,9 +1,8 @@
-import Application from "./Application.js";
 import * as THREE from "three"
 
 export default class Model {
-    constructor(modelName){
-        this.application = new Application()
+    constructor(application, modelName){
+        this.application = application
 
         this.scene = this.application.scene
         this.resources = this.application.resources

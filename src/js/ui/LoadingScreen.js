@@ -1,5 +1,4 @@
-import Application from "./Application.js";
-import EventEmitter from "../utils/EventEmitter.js";
+import EventEmitter from "../../utils/EventEmitter.js";
 
 export default class LoadingScreen extends EventEmitter {
     constructor(application){

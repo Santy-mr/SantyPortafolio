@@ -1,9 +1,8 @@
-import Application from "./Application.js";
 import * as THREE from 'three'
 
 export default class Environment{
-    constructor(astronaut, planet){
-        this.application = new Application()
+    constructor(application, astronaut, planet){
+        this.application = application
 
         this.scene = this.application.scene
         this.resources = this.application.resources

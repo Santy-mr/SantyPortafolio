@@ -1,11 +1,10 @@
-import Application from "./Application.js"
-import EventEmitter from "../utils/EventEmitter.js"
+import EventEmitter from "../../utils/EventEmitter.js"
 
 export default class Cursor extends EventEmitter{
-    constructor(){
+    constructor(application){
         super()
 
-        this.application = new Application()
+        this.application = application
 
         this.sizes = this.application.sizes
 

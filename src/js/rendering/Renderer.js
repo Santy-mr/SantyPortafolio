@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import Application from './Application.js'
 
 export default class Renderer {
     constructor(application){

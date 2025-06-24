@@ -1,10 +1,9 @@
-
 import Model from './Models.js';
 import * as THREE from 'three'
 
 export default class Astronaut extends Model {
-    constructor() {
-        super("astronautModel")
+    constructor(application) {
+        super(application,"astronautModel")
 
         this.speedAstronautAnim = 0.0005
 
