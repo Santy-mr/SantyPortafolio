@@ -19,9 +19,9 @@ export default class Environment{
         this.particles = null
 
         if(this.debug.active){
-            this.lightsFolder = this.debug.ui.addFolder("Lights")
-            this.materialsFolder = this.debug.ui.addFolder("Particles")
-            this.environmentFolder = this.debug.ui.addFolder("Env Map")
+            this.lightsFolder = this.debug.ui.addFolder({ title: "💡 Lights", expanded: false })
+            this.materialsFolder = this.debug.ui.addFolder({ title: "✨ Particles", expanded: false })
+            this.environmentFolder = this.debug.ui.addFolder({ title: "🗺️ Env Map", expanded: false })
         }
 
         this.parameters = { 
@@ -94,7 +94,7 @@ export default class Environment{
         this.scene.environmentIntensity = this.parameters.envMapInt
 
         if(this.debug.active){
-            this.environmentFolder.add(this.parameters, 'envMapInt', 0, 10, 0.01).name('Env Map Intensity').onChange(() => {this.scene.environmentIntensity = this.parameters.envMapInt})
+            this.environmentFolder.addBinding(this.parameters, 'envMapInt', {min: 0, max: 10, step: 0.01}).on('change', () => { this.scene.environmentIntensity = this.parameters.envMapInt });
         }
     }
 
@@ -111,14 +111,15 @@ export default class Environment{
         })
 
         if(this.debug.active){
-            this.materialsFolder.add(this.particlesMaterial, 'size', 0, 1, 0.01).name("Particles Size")
-            this.materialsFolder.addColor(this.parameters, 'materialColor').onChange(() =>{ this.particlesMaterial.color.set(this.parameters.materialColor) })
+            this.materialsFolder.addBinding(this.particlesMaterial, 'size', {min: 0, max: 1, step: 0.01});
+            this.materialsFolder.addBinding(this.parameters, 'materialColor').on('change', () => { this.particlesMaterial.color.set(this.parameters.materialColor) });
+            this.materialsFolder.addBinding(this.particlesMaterial, 'visible')
         }
     }
 
     SetMesh(){
-        this.coneMesh = new THREE.Mesh(this.coneGeometry, this.meshsMaterial)
-        this.torusKnotMesh = new THREE.Mesh(this.torusKnotGeometry, this.meshsMaterial)
+        this.coneMesh = new THREE.Mesh(this.coneGeometry)
+        this.torusKnotMesh = new THREE.Mesh(this.torusKnotGeometry)
 
         this.PositionMeshes()
         this.ResponsiveBehavior()
@@ -169,11 +170,12 @@ export default class Environment{
         this.scene.add(this.directionalLight)
 
         if(this.debug.active){
-            this.lightsFolder.add(this.directionalLight, 'intensity', 0, 10, 1).name("Light Intensity")
-            this.lightsFolder.addColor(this.parameters, 'lightColor').onChange(() =>{ this.directionalLight.color.set(this.parameters.lightColor) })
-            this.lightsFolder.add(this.directionalLight.position, 'x', -5, 5, 0.001).name('Light PosX')
-            this.lightsFolder.add(this.directionalLight.position, 'y', -5, 5, 0.001).name('Light PosY')
-            this.lightsFolder.add(this.directionalLight.position, 'z', -5, 5, 0.001).name('Light PosZ')
+            this.lightsFolder.addBinding(this.directionalLight, 'intensity', {min: 0, max: 10, step: 0.01})
+            this.lightsFolder.addBinding(this.parameters, 'lightColor').on('change', () => { this.directionalLight.color.set(this.parameters.lightColor) })
+            this.lightsFolder.addBinding(this.directionalLight.position, 'x', {min: -5, max: 5, step: 0.001})
+            this.lightsFolder.addBinding(this.directionalLight.position, 'y', {min: -5, max: 5, step: 0.001})
+            this.lightsFolder.addBinding(this.directionalLight.position, 'z', {min: -5, max: 5, step: 0.001})
+            this.lightsFolder.addBinding(this.directionalLight, 'visible')
         }
     }
 

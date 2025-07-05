@@ -20,9 +20,9 @@ export default class World {
             this.planet = new Planets(this.application)
 
             if(this.debug.active){
-                this.animFolders = this.debug.ui.addFolder("Objects")
-                this.animFolders.add(this.astronaut, 'speedAstronautAnim', 0, 0.001, 0.0001)
-                this.animFolders.add(this.planet, 'speedPlanetAnim', 0, 0.001, 0.0001)
+                this.animFolders = this.debug.ui.addFolder({ title: "🎞️ Animations", expanded: false });
+                this.animFolders.addBinding(this.astronaut, 'speedAstronautAnim', {min: 0, max: 0.001, step: 0.0001})
+                this.animFolders.addBinding(this.planet, 'speedPlanetAnim', {min: 0, max: 0.001, step: 0.0001})
             }
 
             this.environment = new Environment(this.application, this.astronaut, this.planet);
