@@ -7,7 +7,7 @@
 
 Este repositorio contiene el código fuente de mi portafolio web personal, donde muestro mis proyectos y habilidades como Ingeniero en Desarrollo de Software Interactivo y Videojuegos.
 
-🔗 **[Ver Demo](https://santidev-portfolio.vercel.app)**
+🔗 **[Ver Demo](https://santy-portafolio.vercel.app/)**
 
 ## 🚧 Estado del Proyecto
 
